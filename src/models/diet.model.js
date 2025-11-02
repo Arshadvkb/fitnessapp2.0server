@@ -17,7 +17,7 @@ const dietSchema = mongoose.Schema(
     },
     date: {
       type: Date,
-      required: ture,
+      required: true,
     },
   },
   { timestamps: true }

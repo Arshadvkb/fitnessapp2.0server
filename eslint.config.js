@@ -10,7 +10,7 @@ export default defineConfig([
     languageOptions: { globals: globals.browser },
     rules: {
       'no-unused-vars': 'warn',
-      'no-undef': 'off',
+      'no-undef': 'warn',
     },
   },
 ]);
