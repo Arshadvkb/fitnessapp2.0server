@@ -40,7 +40,7 @@ const register = async (req, res) => {
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
     const login = new LoginModel({
-      username,
+      email,
       password: hashedPassword,
       role: 'user',
     });
@@ -56,7 +56,7 @@ const register = async (req, res) => {
       goal,
       description,
       gender,
-      dob:dob,
+      dob: dob,
       place,
     });
     generateToken(user._id, res);
@@ -69,4 +69,29 @@ const register = async (req, res) => {
   }
 };
 
-export { register };
+const login = async (req, res) => {
+  const { email, password } = req.body;
+
+  try {
+    const existingUser = await LoginModel.findOne({ email });
+    if (existingUser) {
+      const isMatch = await bcrypt.compare(password, existingUser.password);
+      if (isMatch) {
+        generateToken(existingUser._id, res);
+
+        return res
+          .status(200)
+          .json({ success: true, message: 'Logged in successfuly' });
+      }
+      return res
+        .status(400)
+        .json({ success: false, message: 'Wrong password' });
+    }
+    return res.status(400).json({ success: false, message: 'No user found' });
+  } catch (error) {
+    console.log('error in login' + error.message);
+    return res.status(500).json({ message: 'Internal server error' });
+  }
+};
+
+export { register, login };

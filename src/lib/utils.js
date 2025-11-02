@@ -1,5 +1,5 @@
 import ai from '../config/genai.js';
-import jwt from "jsonwebtoken"
+import jwt from 'jsonwebtoken';
 
 export const generateAiResponse = async (promt) => {
   const response = await ai.models.generateContent({
@@ -9,7 +9,6 @@ export const generateAiResponse = async (promt) => {
 
   return response.text;
 };
-
 
 export const generateToken = (userId, res) => {
   const token = jwt.sign({ userId }, process.env.JWT_SECRETE, {

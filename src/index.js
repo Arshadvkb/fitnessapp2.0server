@@ -19,7 +19,7 @@ app.get('/', (req, res) => {
   res.send('fitness app 2.0');
 });
 
-app.use("/api/auth",authRouter)
+app.use('/api/auth', authRouter);
 
 app.listen(port, () => {
   console.log('server running at:' + 'http://localhost:3000');
