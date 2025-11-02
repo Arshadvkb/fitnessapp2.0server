@@ -4,6 +4,7 @@ import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import { db } from './config/mongo.js';
 import authRouter from './routes/auth.route.js';
+import adminRouter from './routes/admin.route.js';
 
 //server setup
 const app = express();
@@ -20,6 +21,7 @@ app.get('/', (req, res) => {
 });
 
 app.use('/api/auth', authRouter);
+app.use('/api/admin', adminRouter);
 
 app.listen(port, () => {
   console.log('server running at:' + 'http://localhost:3000');

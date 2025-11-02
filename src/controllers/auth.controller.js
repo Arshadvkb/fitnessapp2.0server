@@ -94,7 +94,6 @@ const login = async (req, res) => {
   }
 };
 
-
 const logout = async (req, res) => {
   try {
     res.clearCookie('jwt', {
