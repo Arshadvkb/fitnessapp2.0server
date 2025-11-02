@@ -1,9 +1,9 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose';
 
 const attendanceSchema = mongoose.Schema({
   user: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "User",
+    ref: 'User',
     required: true,
   },
   date: {
@@ -12,12 +12,11 @@ const attendanceSchema = mongoose.Schema({
   },
   status: {
     type: String,
-    enum:[pressent,absent],
+    enum: [pressent, absent],
     required: true,
   },
 });
 
+const attendancemodel = mongoose.model('Attendance', attendanceSchema);
 
-const attendancemodel=mongoose.model("Attendance",attendanceSchema)
-
-export default attendancemodel
+export default attendancemodel;

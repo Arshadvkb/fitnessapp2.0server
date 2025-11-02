@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose';
 
 const complaintSchema = mongoose.Schema(
   {
@@ -13,14 +13,13 @@ const complaintSchema = mongoose.Schema(
     },
     user: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "User",
+      ref: 'User',
       required: true,
     },
   },
   { timestamps: true }
 );
 
+const complaintModel = mongoose.model('Complaints', complaintSchema);
 
-const complaintModel= mongoose.model("Complaints",complaintSchema);
-
-export default complaintModel
+export default complaintModel;

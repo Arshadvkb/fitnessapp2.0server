@@ -1,28 +1,28 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose';
 
-const dietSchema = mongoose.Schema({
-  user: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "User",
-    required: true,
+const dietSchema = mongoose.Schema(
+  {
+    user: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User',
+      required: true,
+    },
+    food: {
+      type: String,
+      required: true,
+    },
+    quantity: {
+      type: String,
+      required: true,
+    },
+    date: {
+      type: Date,
+      required: ture,
+    },
   },
-  food: {
-    type: String,
-    required: true,
-  },
-  quantity: {
-    type: String,
-    required: true,
-  },
-  date:{
-    type:Date,
-    required:ture
-  }
-},{timestamps:true}
+  { timestamps: true }
 );
 
+const dietModel = mongoose.model('Diet', dietSchema);
 
-
-const dietModel= mongoose.model("Diet",dietSchema);
-
-export default dietModel
+export default dietModel;

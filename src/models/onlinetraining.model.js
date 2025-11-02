@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose';
 
 const trainingSchema = mongoose.Schema(
   {
@@ -8,7 +8,7 @@ const trainingSchema = mongoose.Schema(
     },
     trainer: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Trainer",
+      ref: 'Trainer',
       required: true,
     },
     video_name: {
@@ -23,8 +23,6 @@ const trainingSchema = mongoose.Schema(
   { timestamps: true }
 );
 
-
-
-const trainingModel = mongoose.model("Training", trainingSchema);
+const trainingModel = mongoose.model('Training', trainingSchema);
 
 export default trainingModel;
