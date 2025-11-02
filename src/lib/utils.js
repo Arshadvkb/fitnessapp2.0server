@@ -3,7 +3,7 @@ import jwt from 'jsonwebtoken';
 
 export const generateAiResponse = async (promt) => {
   const response = await ai.models.generateContent({
-    model: 'gemini-2.5-flash-001',
+    model: 'gemini-2.0-flash-001',
     contents: promt,
   });
 
