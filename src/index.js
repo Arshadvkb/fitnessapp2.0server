@@ -2,6 +2,7 @@ import "dotenv/config"
 import express from "express"
 import cors from "cors"
 import cookieParser from "cookie-parser"
+import { db } from "./config/mongo.js"
 
 const app=express()
 app.use(cors())
@@ -17,6 +18,7 @@ app.get("/",(req,res)=>{
 
 
 app.listen(port,()=>{
-    console.log("hi");
+    console.log("server running at:" + "http://localhost:3000");
+    db()
     
 })
