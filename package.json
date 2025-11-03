@@ -37,7 +37,7 @@
     "multer": "^2.0.2"
   },
   "lint-staged": {
-  "*.js": "eslint --fix",
-  "*.{js,css,md}": "prettier --write"
-}
+    "*.js": "eslint --fix",
+    "*.{js,css,md}": "prettier --write"
+  }
 }

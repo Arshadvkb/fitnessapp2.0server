@@ -5,5 +5,4 @@ const userRouter = express.Router();
 
 userRouter.get('/getAiResponse/:id', getAiRecomendation);
 
-
-export default userRouter
+export default userRouter;
