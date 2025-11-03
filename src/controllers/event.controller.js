@@ -37,7 +37,33 @@ const viewevent = async (req, res) => {
   }
 };
 
-const editevent = async (req, res) => {};
+const editevent = async (req, res) => {
+  console.log('Received request body:', req.body);
+
+  try {
+    const { id } = req.params;
+    const { title, description, date } = req.body;
+    const event = await eventModel.findByIdAndUpdate(
+      id,
+      {
+        title,
+        description,
+        date,
+      },
+      { new: true, runValidators: true }
+    );
+    if (!event) {
+      return res
+        .status(400)
+        .json({ success: false, message: 'No event found' });
+    }
+
+    return res.status(200).json({ success: true, message: 'event updated' });
+  } catch (error) {
+    console.log('error edit event ' + error.message);
+    return res.status(500).json({ message: 'Internal server error' });
+  }
+};
 
 const deleteevent = async (req, res) => {
   const { id } = req.params;

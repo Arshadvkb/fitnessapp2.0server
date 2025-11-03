@@ -11,7 +11,7 @@ const eventRouter = express.Router();
 
 eventRouter.post('/add', upload.single('file'), addevent);
 eventRouter.get('/view', viewevent);
-eventRouter.put('/edit/:id', editevent);
+eventRouter.patch('/edit/:id', editevent);
 eventRouter.delete('/delete/:id', deleteevent);
 
 export default eventRouter;
