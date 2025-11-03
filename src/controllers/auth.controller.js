@@ -89,6 +89,7 @@ const login = async (req, res) => {
       if (!isMatch) {
         return res.json({ success: false, message: 'Invalid password' });
       }
+      generateToken(admin._id, res);
       return res.json({
         success: true,
         message: 'Login successful',
@@ -107,6 +108,7 @@ const login = async (req, res) => {
       if (!isMatch) {
         return res.json({ success: false, message: 'Invalid password' });
       }
+      generateToken(trainer._id, res);
       return res.json({
         success: true,
         message: 'Login successful',
@@ -125,6 +127,7 @@ const login = async (req, res) => {
       if (!isMatch) {
         return res.json({ success: false, message: 'Invalid password' });
       }
+      generateToken(user._id, res);
       return res.json({ success: true, message: 'Login successful', user });
     }
   } catch (error) {
