@@ -27,7 +27,13 @@ app.use('/api/admin', adminRouter);
 app.use('/api/user', userRouter);
 app.use('/api/event', eventRouter);
 
-app.listen(port, () => {
-  console.log('server running at:' + 'http://localhost:3000');
-  db();
-});
+db()
+  .then(() => {
+    app.listen(port, () => {
+      console.log(`Server running at: http://localhost:${port}`);
+    });
+  })
+  .catch((error) => {
+    console.error('Failed to connect to DB—exiting:', error.message);
+    process.exit(1);
+  });
