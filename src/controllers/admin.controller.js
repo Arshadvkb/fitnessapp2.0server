@@ -61,6 +61,16 @@ const view_trainer = async (req, res) => {
   }
 };
 
-const delete_trainer = async (req, res) => {};
+const delete_trainer = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const response = await trainerModel.findByIdAndDelete(id);
+
+    return res.status(200).json({ message: 'trainer deleted' });
+  } catch (error) {
+    console.log('error in delete trainer ' + error.message);
+    return res.status(500).json({ message: 'Internal server error' });
+  }
+};
 
 export { addTrainer, view_trainer, delete_trainer };
