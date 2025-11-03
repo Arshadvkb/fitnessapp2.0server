@@ -27,4 +27,14 @@ const addevent = async (req, res) => {
   }
 };
 
-export { addevent };
+const viewevent = async (req, res) => {
+  try {
+    const events = await eventModel.find();
+    return res.status(200).json({ events });
+  } catch (error) {
+    console.log('error view event ' + error.message);
+    return res.status(500).json({ message: 'Internal server error' });
+  }
+};
+
+export { addevent, viewevent };
