@@ -2,12 +2,11 @@ import mongoose from 'mongoose';
 
 const trainerSchema = mongoose.Schema(
   {
-    login: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Login',
+    tname: {
+      type: String,
       required: true,
     },
-    tname: {
+    password: {
       type: String,
       required: true,
     },
@@ -22,6 +21,7 @@ const trainerSchema = mongoose.Schema(
     email: {
       type: String,
       required: true,
+      unique: true,
     },
     place: {
       type: String,
