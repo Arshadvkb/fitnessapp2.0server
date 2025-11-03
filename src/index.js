@@ -6,6 +6,7 @@ import { db } from './config/mongo.js';
 import authRouter from './routes/auth.route.js';
 import adminRouter from './routes/admin.route.js';
 import userRouter from './routes/user.route.js';
+import eventRouter from './routes/event.route.js';
 
 //server setup
 const app = express();
@@ -24,6 +25,7 @@ app.get('/', (req, res) => {
 app.use('/api/auth', authRouter);
 app.use('/api/admin', adminRouter);
 app.use('/api/user', userRouter);
+app.use('/api/event', eventRouter);
 
 app.listen(port, () => {
   console.log('server running at:' + 'http://localhost:3000');
