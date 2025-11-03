@@ -37,4 +37,19 @@ const viewevent = async (req, res) => {
   }
 };
 
-export { addevent, viewevent };
+const editevent = async (req, res) => {};
+
+const deleteevent = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const response = await eventModel.findByIdAndDelete(id);
+    console.log(response);
+
+    return res.status(200).json({ message: 'event deleted' });
+  } catch (error) {
+    console.log('error in delete event ' + error.message);
+    return res.status(500).json({ message: 'Internal server error' });
+  }
+};
+
+export { addevent, viewevent, editevent, deleteevent };
