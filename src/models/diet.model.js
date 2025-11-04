@@ -1,10 +1,10 @@
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 
 const dietSchema = mongoose.Schema(
   {
     user: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'User',
+      ref: "User",
       required: true,
     },
     food: {
@@ -23,6 +23,6 @@ const dietSchema = mongoose.Schema(
   { timestamps: true }
 );
 
-const dietModel = mongoose.model('Diet', dietSchema);
+const dietModel = mongoose.model("Diet", dietSchema);
 
 export default dietModel;

@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 
 const feesSchema = mongoose.Schema(
   {
@@ -12,7 +12,7 @@ const feesSchema = mongoose.Schema(
     },
     user: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'User',
+      ref: "User",
       required: true,
     },
     status: {
@@ -23,6 +23,6 @@ const feesSchema = mongoose.Schema(
   { timestamps: true }
 );
 
-const feesModel = mongoose.model('Fees', feesSchema);
+const feesModel = mongoose.model("Fees", feesSchema);
 
 export default feesModel;

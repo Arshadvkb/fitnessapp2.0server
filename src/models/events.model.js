@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 
 const eventSchema = mongoose.Schema({
   title: {
@@ -23,6 +23,6 @@ const eventSchema = mongoose.Schema({
   },
 });
 
-const eventModel = mongoose.model('Events', eventSchema);
+const eventModel = mongoose.model("Events", eventSchema);
 
 export default eventModel;

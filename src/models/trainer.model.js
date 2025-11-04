@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 
 const trainerSchema = mongoose.Schema(
   {
@@ -39,6 +39,6 @@ const trainerSchema = mongoose.Schema(
   { timestamps: true }
 );
 
-const trainerModel = mongoose.model('Trainer', trainerSchema);
+const trainerModel = mongoose.model("Trainer", trainerSchema);
 
 export default trainerModel;

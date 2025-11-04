@@ -1,5 +1,5 @@
-import userModel from '../models/user.model.js';
-import { generateAiResponse } from '../lib/utils.js';
+import userModel from "../models/user.model.js";
+import { generateAiResponse } from "../lib/utils.js";
 
 const getAiRecomendation = async (req, res) => {
   const { id } = req.params;

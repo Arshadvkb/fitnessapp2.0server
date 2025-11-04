@@ -1,10 +1,10 @@
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 
 const workoutSchema = mongoose.Schema(
   {
     user: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'User',
+      ref: "User",
       required: true,
     },
     reps: {
@@ -23,6 +23,6 @@ const workoutSchema = mongoose.Schema(
   { timestamps: true }
 );
 
-const workoutModel = mongoose.model('Workout', workoutSchema);
+const workoutModel = mongoose.model("Workout", workoutSchema);
 
 export default workoutModel;
