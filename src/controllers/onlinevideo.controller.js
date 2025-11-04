@@ -9,10 +9,15 @@ const addvideo = async (req, res) => {
     if (!video_name || !video_decription || !req.file) {
       return res.status(400).json({ message: "Details missing" });
     }
+    console.log(req.file.path);
+
     const uploadResult = await cloudinary.uploader.upload(req.file.path, {
       resource_type: "video",
       folder: "fitnessapp2.0",
     });
+
+    console.log(uploadResult);
+
     const video = new trainingModel({
       video_name,
       video_decription,
@@ -27,7 +32,7 @@ const addvideo = async (req, res) => {
 
     await newNotification.save();
 
-    return res.status(200).json({ message: "New video adde", video });
+    return res.status(200).json({ message: "New video added", video });
   } catch (error) {
     console.log("error add video " + error.message);
 
