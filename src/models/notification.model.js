@@ -11,13 +11,8 @@ const notificationSchema = mongoose.Schema({
     required: true,
     maxlength: 100,
   },
-  star_date: {
+  date: {
     type: Date,
-    required: true,
-  },
-  end_date: {
-    type: Date,
-    required: true,
   },
 });
 

@@ -1,9 +1,12 @@
 import cloudinary from '../config/cloudinary.js';
 import eventModel from '../models/events.model.js';
+import notificationModel from '../models/notification.model.js';
 
 const addevent = async (req, res) => {
-  const { title, description, date, time } = req.body;
   try {
+    console.log(req.body);
+
+    const { title, description, date, time } = req.body;
     if (!title || !description || !date || !time) {
       return res.status(400).json({ message: 'Details missing' });
     }
@@ -19,6 +22,12 @@ const addevent = async (req, res) => {
       time,
       image: uploadResult.secure_url,
     });
+    const newnotification = new notificationModel({
+      notification: title,
+      description: description,
+      date: date,
+    });
+    await newnotification.save();
     await newevent.save();
     return res.status(201).json({ message: 'New event added', newevent });
   } catch (error) {
