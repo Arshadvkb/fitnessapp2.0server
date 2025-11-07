@@ -11,17 +11,10 @@ const addvideo = async (req, res) => {
     }
     console.log(req.file.path);
 
-    const uploadResult = await cloudinary.uploader.upload(req.file.path, {
-      resource_type: "video",
-      folder: "fitnessapp2.0",
-    });
-
-    console.log(uploadResult);
-
     const video = new trainingModel({
       video_name,
       video_decription,
-      video: uploadResult.secure_url,
+      video: req.file.path,
       trainer: id,
     });
     await video.save();
