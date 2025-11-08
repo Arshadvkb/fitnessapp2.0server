@@ -135,4 +135,15 @@ const editvideo = async (req, res) => {
   }
 };
 
-export { addvideo, viewvideo, editvideo };
+const deletevideo = async (req, res) => {
+  try {
+    const { id } = req.params;
+    await trainingModel.findByIdAndDelete(id);
+    return res.status(200).json({ message: "deleted successfuly" });
+  } catch (error) {
+    console.log("error delete video " + error.message);
+    return res.status(500).json({ message: "Internal server error" });
+  }
+};
+
+export { addvideo, viewvideo, editvideo, deletevideo };
