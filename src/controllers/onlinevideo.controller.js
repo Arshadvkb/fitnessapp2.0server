@@ -1,6 +1,7 @@
-import cloudinary from "../config/cloudinary.js";
 import notificationModel from "../models/notification.model.js";
 import trainingModel from "../models/onlinetraining.model.js";
+import cloudinary from "../config/cloudinary.js";
+import fs from "fs";
 
 const addvideo = async (req, res) => {
   const { video_name, video_decription } = req.body;
@@ -9,15 +10,54 @@ const addvideo = async (req, res) => {
     if (!video_name || !video_decription || !req.file) {
       return res.status(400).json({ message: "Details missing" });
     }
-    console.log(req.file.path);
+
+    // Check file type
+    const allowedTypes = [
+      "video/mp4",
+      "video/quicktime",
+      "video/x-msvideo",
+      "video/x-matroska",
+    ];
+    if (!allowedTypes.includes(req.file.mimetype)) {
+      return res.status(400).json({
+        message:
+          "Invalid file type. Only MP4, MOV, AVI, and MKV videos are allowed.",
+      });
+    }
+
+    // Upload to cloudinary using buffer
+    const buffer = await fs.promises.readFile(req.file.path);
+    const result = await new Promise((resolve, reject) => {
+      cloudinary.uploader
+        .upload_stream(
+          {
+            resource_type: "video",
+            folder: "fitness_videos",
+            allowed_formats: ["mp4", "mov", "avi", "mkv"],
+          },
+          (error, result) => {
+            if (error) {
+              console.error("Cloudinary upload error:", error);
+              reject(error);
+            } else {
+              resolve(result);
+            }
+          }
+        )
+        .end(buffer);
+    });
+
+    // Clean up local file
+    await fs.promises.unlink(req.file.path);
 
     const video = new trainingModel({
       video_name,
       video_decription,
-      video: req.file.path,
+      video: result.secure_url,
       trainer: id,
     });
     await video.save();
+
     const newNotification = new notificationModel({
       notification: video_name,
       description: video_decription,
@@ -25,10 +65,31 @@ const addvideo = async (req, res) => {
 
     await newNotification.save();
 
-    return res.status(200).json({ message: "New video added", video });
+    return res.status(200).json({
+      message: "New video added",
+      video,
+      cloudinary_url: result.secure_url,
+    });
   } catch (error) {
     console.log("error add video " + error.message);
-    return res.status(500).json({ message: "Internal server error" });
+
+    if (req.file && req.file.path) {
+      try {
+        const fs = await import("fs");
+        await fs.promises.unlink(req.file.path);
+      } catch (unlinkError) {
+        console.log("Error deleting temporary file:", unlinkError);
+      }
+    }
+
+    if (error.message.includes("Invalid file type")) {
+      return res.status(400).json({ message: error.message });
+    }
+
+    return res.status(500).json({
+      message: "Error uploading video",
+      error: error.message,
+    });
   }
 };
 
@@ -36,7 +97,7 @@ const viewvideo = async (req, res) => {
   try {
     const video = await trainingModel.find();
     console.log(video);
-    if (!video) {
+    if (video.length === 0) {
       return res
         .status(400)
         .json({ success: false, message: "No video found" });
