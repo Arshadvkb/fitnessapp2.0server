@@ -11,7 +11,6 @@ const addvideo = async (req, res) => {
       return res.status(400).json({ message: "Details missing" });
     }
 
-    // Check file type
     const allowedTypes = [
       "video/mp4",
       "video/quicktime",
@@ -25,7 +24,6 @@ const addvideo = async (req, res) => {
       });
     }
 
-    // Upload to cloudinary using buffer
     const buffer = await fs.promises.readFile(req.file.path);
     const result = await new Promise((resolve, reject) => {
       cloudinary.uploader
@@ -47,7 +45,6 @@ const addvideo = async (req, res) => {
         .end(buffer);
     });
 
-    // Clean up local file
     await fs.promises.unlink(req.file.path);
 
     const video = new trainingModel({
@@ -112,4 +109,30 @@ const viewvideo = async (req, res) => {
   }
 };
 
-export { addvideo, viewvideo };
+const editvideo = async (req, res) => {
+  try {
+    const { video_name, video_decription } = req.body;
+    const { id } = req.params;
+    const video = await trainingModel.findByIdAndUpdate(
+      id,
+      {
+        video_name,
+        video_decription,
+      },
+      { new: true }
+    );
+    if (!video) {
+      return res
+        .status(400)
+        .json({ success: false, message: "Video not found" });
+    }
+    return res
+      .status(200)
+      .json({ success: true, message: "Video updated", video });
+  } catch (error) {
+    console.log("error edit video " + error.message);
+    return res.status(500).json({ message: "Internal server error" });
+  }
+};
+
+export { addvideo, viewvideo, editvideo };
