@@ -139,6 +139,9 @@ const deletevideo = async (req, res) => {
   try {
     const { id } = req.params;
     await trainingModel.findByIdAndDelete(id);
+    await cloudinary.uploader.destroy(id, {
+      resource_type: "video",
+    });
     return res.status(200).json({ message: "deleted successfuly" });
   } catch (error) {
     console.log("error delete video " + error.message);
