@@ -12,12 +12,15 @@ const workoutSchema = mongoose.Schema(
       required: true,
     },
     count: {
-      type: Number,
+      type: [Number],
       required: true,
     },
     workout: {
       type: String,
       required: true,
+    },
+    weight: {
+      type: [String],
     },
   },
   { timestamps: true }
