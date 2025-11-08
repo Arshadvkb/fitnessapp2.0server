@@ -8,6 +8,7 @@ import adminRouter from "./routes/admin.route.js";
 import userRouter from "./routes/user.route.js";
 import eventRouter from "./routes/event.route.js";
 import videoRouter from "./routes/onlinevideo.route.js";
+import testRouter from "./routes/test.route.js";
 
 //server setup
 const app = express();
@@ -28,6 +29,7 @@ app.use("/api/admin", adminRouter);
 app.use("/api/user", userRouter);
 app.use("/api/event", eventRouter);
 app.use("/api/video", videoRouter);
+app.use("/api", testRouter);
 
 db()
   .then(() => {
