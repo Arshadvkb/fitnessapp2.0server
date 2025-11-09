@@ -5,7 +5,7 @@ import {
   editevent,
   viewevent,
 } from "../controllers/event.controller.js";
-import upload from "../middleware/multer.js";
+import { upload } from "../middleware/multer.js";
 
 const eventRouter = express.Router();
 

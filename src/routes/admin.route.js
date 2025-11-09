@@ -4,7 +4,7 @@ import {
   delete_trainer,
   view_trainer,
 } from "../controllers/admin.controller.js";
-import upload from "../middleware/multer.js";
+import { upload } from "../middleware/multer.js";
 
 const adminRouter = express.Router();
 
