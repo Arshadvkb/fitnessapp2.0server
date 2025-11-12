@@ -6,11 +6,13 @@ import bcrypt from "bcryptjs";
 
 const register = async (req, res) => {
   console.log(req.body);
+  console.log(req.file);
 
   const {
-    username,
+    userName,
     password,
-    phone,
+    confirmpassword,
+    mobile,
     email,
     height,
     weight,
@@ -23,9 +25,9 @@ const register = async (req, res) => {
 
   try {
     if (
-      !username ||
+      !userName ||
       !password ||
-      !phone ||
+      !mobile ||
       !email ||
       !height ||
       !weight ||
@@ -35,8 +37,11 @@ const register = async (req, res) => {
       !dob ||
       !place
     ) {
+      console.log("missing details");
+
       return res.status(400).json({ message: "Missing detials" });
     }
+    // if(confirmpassword!=password)return res.status(400).json({ message: "password must be same" });
 
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
@@ -48,9 +53,9 @@ const register = async (req, res) => {
     }
 
     const user = new userModel({
-      username,
+      username: userName,
       password: hashedPassword,
-      phone,
+      phone: mobile,
       email,
       height,
       weight,
