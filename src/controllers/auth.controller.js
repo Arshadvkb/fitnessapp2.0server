@@ -1,3 +1,4 @@
+import cloudinary from "../config/cloudinary.js";
 import { generateToken } from "../lib/utils.js";
 import adminModel from "../models/admin.model.js";
 import trainerModel from "../models/trainer.model.js";
@@ -41,7 +42,13 @@ const register = async (req, res) => {
 
       return res.status(400).json({ message: "Missing detials" });
     }
-    // if(confirmpassword!=password)return res.status(400).json({ message: "password must be same" });
+    if (confirmpassword != password)
+      return res.status(400).json({ message: "password must be same" });
+
+    const uploadResult = await cloudinary.uploader.upload(req.file.path, {
+      resource_type: "auto",
+      folder: "library_books",
+    });
 
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
@@ -64,6 +71,7 @@ const register = async (req, res) => {
       gender,
       dob: dob,
       place,
+      image: uploadResult.secure_url,
     });
     generateToken(user._id, res);
     await user.save();
