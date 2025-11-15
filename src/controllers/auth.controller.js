@@ -12,7 +12,7 @@ const register = async (req, res) => {
   const {
     userName,
     password,
-    confirmpassword,
+    confirmPassword,
     mobile,
     email,
     height,
@@ -42,7 +42,7 @@ const register = async (req, res) => {
 
       return res.status(400).json({ message: "Missing detials" });
     }
-    if (confirmpassword != password)
+    if (confirmPassword != password)
       return res.status(400).json({ message: "password must be same" });
 
     const uploadResult = await cloudinary.uploader.upload(req.file.path, {
